@@ -1,0 +1,1 @@
+bot.send("you said: "+msg);

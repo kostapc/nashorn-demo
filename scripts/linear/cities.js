@@ -1,0 +1,1 @@
+bot.send("game not ready");
