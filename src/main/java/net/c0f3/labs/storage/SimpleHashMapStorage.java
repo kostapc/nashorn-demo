@@ -13,7 +13,8 @@ public class SimpleHashMapStorage implements SimpleStorage {
 
     @Override
     public Boolean save(String key, Object value) {
-        return map.put(key, value)!=null;
+        map.put(key, value);
+        return true;
     }
 
     @Override

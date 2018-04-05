@@ -21,10 +21,10 @@ public abstract class NashornWrapper {
     public static final String ENGINE_NASHORN = "nashorn";
     public static final String SCOPE_DEFAULT_OBJECT = "app";
 
-    private final String fileName;
+    private final ScriptSource scriptSource;
 
     public NashornWrapper(String fileName) {
-        this.fileName = fileName;
+        scriptSource = new ScriptSource(fileName);
     }
 
     protected ScriptEngine initEngine(Map<String,Object> contextObjects) {
@@ -41,19 +41,13 @@ public abstract class NashornWrapper {
     protected Invocable compileScriptAndRun(Map<String,Object> contextObjects) {
         ScriptEngine scriptEngine = initEngine(contextObjects);
         try {
-            scriptEngine.eval(getScriptFromFile());
+            scriptEngine.eval(scriptSource.getScriptFromFile());
         } catch (ScriptException e) {
             throw new IllegalArgumentException(e);
         }
         return (Invocable) scriptEngine;
     }
 
-    protected Reader getScriptFromFile() {
-        try {
-            return new FileReader(fileName);
-        }  catch (FileNotFoundException e) {
-            throw new IllegalArgumentException("no file: "+new File(fileName).getAbsolutePath());
-        }
-    }
+
 
 }

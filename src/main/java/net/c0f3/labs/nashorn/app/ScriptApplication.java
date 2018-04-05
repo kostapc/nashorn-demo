@@ -1,7 +1,10 @@
 package net.c0f3.labs.nashorn.app;
 
 import net.c0f3.labs.nashorn.NashornWrapper;
+import net.c0f3.labs.nashorn.ScriptSource;
 
+import javax.script.Compilable;
+import javax.script.CompiledScript;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import java.util.Map;
@@ -15,16 +18,15 @@ import java.util.Map;
  */
 public class ScriptApplication extends NashornWrapper implements Runnable {
 
-    // TODO: create implementation for callback function for async call.
-    // TODO: implement events queue for callbacks and incoming events; Script must stay single-threaded and async;
-    // TODO: it's necessary create special context object for async call methods from java API
     // TODO: read more about invokeFunction | invokeMethod
 
-    private ScriptEngine script;
+    private final ScriptSource scriptSource;
+    private final ScriptEngine script;
 
     public ScriptApplication(String fileName, Map<String, Object> context) {
         super(fileName);
-        script = super.initEngine(context);
+        this.scriptSource = new ScriptSource(fileName);
+        this.script = super.initEngine(context);
     }
 
     public void startApplication() {
@@ -35,7 +37,11 @@ public class ScriptApplication extends NashornWrapper implements Runnable {
     @Override
     public void run() {
         try {
-            script.eval(super.getScriptFromFile());
+            // TODO: move compiled invoke to wrapper
+            CompiledScript compiledScript = ((Compilable)script).compile(
+                    scriptSource.getScriptFromFile()
+            );
+            compiledScript.eval(script.getContext());
         } catch (ScriptException e) {
             throw new IllegalArgumentException(e);
         }

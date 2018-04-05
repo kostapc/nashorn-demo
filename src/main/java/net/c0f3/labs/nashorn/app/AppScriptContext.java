@@ -16,7 +16,8 @@ import java.util.function.Supplier;
 public class AppScriptContext {
 
     private final SimpleStorage storage;
-    private final Executor executor = Executors.newSingleThreadExecutor();
+    private final Executor externalExecutor = Executors.newFixedThreadPool(10);
+    private final Executor jsExecutor = Executors.newSingleThreadExecutor();
     private JSObject callback;
     private final Object caller;
 
@@ -26,7 +27,9 @@ public class AppScriptContext {
     }
 
     void runTask(Supplier<Object> task, Consumer<Object> callback) {
-        CompletableFuture.supplyAsync(task,executor).thenAccept(callback);
+        CompletableFuture.supplyAsync(task, externalExecutor).thenAccept(
+                (result)-> jsExecutor.execute(() -> callback.accept(result))
+        );
     }
 
     @SuppressWarnings("unused") // used by javascript
