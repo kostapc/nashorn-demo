@@ -14,7 +14,7 @@ import java.util.UUID;
  * @author KostaPC
  * c0f3.net
  */
-class AppScriptContextTest {
+public class AppScriptContextTest {
 
     public static void main(String[] args) {
         new AppScriptContextTest().processMessageTest();
@@ -30,23 +30,23 @@ class AppScriptContextTest {
         storage = new SimpleHashMapStorage();
         context = new AppScriptContext(storage);
         script = new ScriptApplication(
-                "scripts"+ File.separator+"app"+File.separator+"bot.js",
+                "scripts" + File.separator + "app" + File.separator + "bot.js",
                 Collections.singletonMap("bot", context)
         );
         script.startApplication();
-        new Thread(()-> {
+        new Thread(() -> {
             int i = 0;
             int rc = 0;
             while (!Thread.currentThread().isInterrupted()) {
                 context.processMessage(
-                        "some other message (id:"+UUID.randomUUID()+")", "user-" + i,
+                        "some other message (id:" + UUID.randomUUID() + ")", "user-" + i,
                         System.out::println
                 );
                 context.processMessage(
                         "/time", "user-" + i,
                         System.out::println
                 );
-                if(++rc%2==0) {
+                if (++rc % 2 == 0) {
                     i++;
                 }
                 try {

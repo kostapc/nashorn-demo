@@ -3,7 +3,6 @@ package net.c0f3.labs.telegram;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -31,6 +30,7 @@ public class BotConfig {
         instance(new BotConfig());
 
         private BotConfig config;
+
         ST(BotConfig config) {
             this.config = config;
         }
@@ -38,7 +38,7 @@ public class BotConfig {
 
     private static final String CONFIG_RESOURCE = "bot.properties";
     private static final String CONFIG_FOLDER = "config";
-    private static final String CONFIG_PATH = CONFIG_FOLDER+ File.separator+CONFIG_RESOURCE;
+    private static final String CONFIG_PATH = CONFIG_FOLDER + File.separator + CONFIG_RESOURCE;
 
     private String botUsername;
     private String botToken;

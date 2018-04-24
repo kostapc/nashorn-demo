@@ -1,11 +1,16 @@
 package net.c0f3.labs.nashorn.app;
 
 import jdk.nashorn.api.scripting.JSObject;
+import net.c0f3.labs.nashorn.events.EventsDrivenBot;
 import net.c0f3.labs.storage.SimpleStorage;
 
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 2018-03-22
@@ -14,6 +19,8 @@ import java.util.function.Supplier;
  * c0f3.net
  */
 public class AppScriptContext {
+
+    private static Logger logger = Logger.getLogger(BotScriptApplication.class.getPackage().getName());
 
     private final SimpleStorage storage;
     private final Executor externalExecutor = Executors.newFixedThreadPool(10);
@@ -28,7 +35,7 @@ public class AppScriptContext {
 
     void runTask(Supplier<Object> task, Consumer<Object> callback) {
         CompletableFuture.supplyAsync(task, externalExecutor).thenAccept(
-                (result)-> jsExecutor.execute(() -> callback.accept(result))
+                (result) -> jsExecutor.execute(() -> callback.accept(result))
         );
     }
 
@@ -38,25 +45,27 @@ public class AppScriptContext {
     }
 
     public void save(String key, Object value, JSObject callback) {
-        runTask(()-> storage.save(key, value),(res)-> callback.call(caller,res));
+        runTask(() -> storage.save(key, value), (res) -> callback.call(caller, res));
     }
 
     public void load(String key, JSObject callback) {
-        runTask(()-> storage.load(key),(res)-> callback.call(caller,res));
+        runTask(() -> storage.load(key), (res) -> callback.call(caller, res));
     }
 
     public void delete(String key, JSObject callback) {
-        runTask(()-> storage.delete(key),(res)-> callback.call(caller,res));
+        runTask(() -> storage.delete(key), (res) -> callback.call(caller, res));
     }
 
     void processMessage(String message, String user, Consumer<String> sender) {
-        runTask(()->{
+        runTask(() -> {
             MessageHandler messageHandler = new MessageHandler(
-                sender, message, user
+                    sender, message, user
             );
+            long nanos = System.nanoTime();
             callback.call(caller, messageHandler);
+            logger.log(Level.INFO, "BotScriptApplication script call time: "+(System.nanoTime()-nanos));
             return null;
-        },(Object)->{/*nobody care*/});
+        }, (Object) -> {/*nobody care*/});
     }
 
     public class MessageHandler {
@@ -71,10 +80,10 @@ public class AppScriptContext {
         }
 
         public void send(String outMessage, JSObject callback) {
-            runTask(()-> {
+            runTask(() -> {
                 sender.accept(outMessage);
                 return true; // message always send successful =)
-            },(res)-> callback.call(caller, res));
+            }, (res) -> callback.call(caller, res));
         }
     }
 

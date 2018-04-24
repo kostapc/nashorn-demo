@@ -14,8 +14,8 @@ if(userdata == null) {
     timestamp = userdata.timestamp;
     timestamp = new Date().getTime() - timestamp;
     timestamp = timestamp/1000;
-    print(timestamp+"seconds passed since "+username+" last ask");
+    print(timestamp+" seconds passed since "+username+" last ask");
     bot.send(timestamp+" seconds passed since your last ask");
     timestamp = new Date().getTime() - timestamp;
-    bot.save(username,context);
+    bot.save(username,{"timestamp":timestamp});
 }

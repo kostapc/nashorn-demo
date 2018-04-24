@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.c0f3.labs</groupId>
-    <artifactId>nashorn-wrapper</artifactId>
+    <artifactId>nashorn-demo-bot</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>nashorn wrapper</name>
+    <name>nashorn demo bot</name>
 
     <url>http://c0f3.net</url>
 
@@ -19,7 +19,6 @@
         <plugins>
         </plugins>
     </build>
-
 
     <dependencies>
 

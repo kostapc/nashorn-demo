@@ -24,10 +24,6 @@ function cmdTime(username, context) {
     });
 }
 
-function cmdCities(username, context) {
-    context.send("game not ready");
-}
-
 function userMessage(msg, context) {
     context.send("you said: "+msg);
 }

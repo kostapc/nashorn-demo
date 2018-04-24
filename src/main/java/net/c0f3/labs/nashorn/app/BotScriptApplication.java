@@ -1,6 +1,5 @@
 package net.c0f3.labs.nashorn.app;
 
-import net.c0f3.labs.nashorn.events.EventsDrivenBot;
 import net.c0f3.labs.storage.SimpleHashMapStorage;
 import net.c0f3.labs.storage.SimpleStorage;
 import net.c0f3.labs.telegram.BotEventsHandler;
@@ -34,8 +33,8 @@ public class BotScriptApplication implements BotEventsHandler {
         storage = new SimpleHashMapStorage();
         context = new AppScriptContext(storage);
         script = new ScriptApplication(
-            "scripts"+ File.separator+"app"+File.separator+"bot.js",
-             Collections.singletonMap("bot", context)
+                "scripts" + File.separator + "app" + File.separator + "bot.js",
+                Collections.singletonMap("bot", context)
         );
     }
 

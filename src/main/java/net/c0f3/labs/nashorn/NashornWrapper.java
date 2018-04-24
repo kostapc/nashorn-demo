@@ -1,10 +1,6 @@
 package net.c0f3.labs.nashorn;
 
 import javax.script.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.Reader;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -16,7 +12,7 @@ import java.util.logging.Logger;
  */
 public abstract class NashornWrapper {
 
-    private Logger logger = Logger.getLogger(NashornWrapper.class.getPackage().getName());
+    private static Logger logger = Logger.getLogger(NashornWrapper.class.getPackage().getName());
 
     public static final String ENGINE_NASHORN = "nashorn";
     public static final String SCOPE_DEFAULT_OBJECT = "app";
@@ -27,7 +23,7 @@ public abstract class NashornWrapper {
         scriptSource = new ScriptSource(fileName);
     }
 
-    protected ScriptEngine initEngine(Map<String,Object> contextObjects) {
+    protected ScriptEngine initEngine(Map<String, Object> contextObjects) {
         ScriptEngine engine = new ScriptEngineManager().getEngineByName(ENGINE_NASHORN);
         ScriptContext context = new SimpleScriptContext();
         for (Map.Entry<String, Object> entry : contextObjects.entrySet()) {
@@ -38,7 +34,7 @@ public abstract class NashornWrapper {
         return engine;
     }
 
-    protected Invocable compileScriptAndRun(Map<String,Object> contextObjects) {
+    protected Invocable compileScriptAndRun(Map<String, Object> contextObjects) {
         ScriptEngine scriptEngine = initEngine(contextObjects);
         try {
             scriptEngine.eval(scriptSource.getScriptFromFile());
@@ -47,7 +43,6 @@ public abstract class NashornWrapper {
         }
         return (Invocable) scriptEngine;
     }
-
 
 
 }

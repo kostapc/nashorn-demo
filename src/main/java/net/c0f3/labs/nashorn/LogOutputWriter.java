@@ -12,11 +12,15 @@ import java.util.logging.Logger;
  * <a href="http://stackoverflow.com/questions/6995946/log4j-how-do-i-redirect-an-outputstream-or-writer-to-loggers-writers">discuss</a>*
  */
 public class LogOutputWriter extends Writer {
-    /** The logger where to log the written bytes. */
+    /**
+     * The logger where to log the written bytes.
+     */
     private Logger logger;
 
 
-    /** The internal memory for the written bytes. */
+    /**
+     * The internal memory for the written bytes.
+     */
     private StringBuilder writer;
 
     /**
@@ -36,7 +40,7 @@ public class LogOutputWriter extends Writer {
      *
      * @return this writer logger!
      */
-    public Logger getLogger () {
+    public Logger getLogger() {
         return logger;
     }
 
@@ -46,8 +50,8 @@ public class LogOutputWriter extends Writer {
      * @param b - byte of data
      */
     @Override
-    public void write (int b) {
-        if(b == '\n') {
+    public void write(int b) {
+        if (b == '\n') {
             flush();
             clear();
             return;
@@ -59,8 +63,8 @@ public class LogOutputWriter extends Writer {
      * Flushes the output stream.
      */
     @Override
-    public void flush () {
-        if(writer.length()>0) {
+    public void flush() {
+        if (writer.length() > 0) {
             String output = writer.toString();
             logger.info(output);
         }

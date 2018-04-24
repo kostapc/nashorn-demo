@@ -8,6 +8,8 @@ package net.c0f3.labs.storage;
  */
 public interface SimpleStorage {
     Boolean save(String key, Object value);
+
     Object load(String key);
+
     Boolean delete(String key);
 }

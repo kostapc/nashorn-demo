@@ -1,1 +1,1 @@
-bot.send("you said: "+msg);
+bot.send("you said: "+bot.message);

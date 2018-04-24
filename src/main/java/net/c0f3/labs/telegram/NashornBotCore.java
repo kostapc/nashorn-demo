@@ -21,7 +21,7 @@ public class NashornBotCore {
         ApiContextInitializer.init();
         try {
             LogManager.getLogManager().readConfiguration(
-                    new FileInputStream("config"+ File.separator+"logger.properties")
+                    new FileInputStream("config" + File.separator + "logger.properties")
             );
         } catch (IOException e) {
             throw new IllegalStateException(e);
@@ -32,7 +32,7 @@ public class NashornBotCore {
         TelegramBotsApi botsApi = new TelegramBotsApi();
         try {
             botsApi.registerBot(new NashornBot(
-                eventsHandler
+                    eventsHandler
             ));
         } catch (TelegramApiException e) {
             e.printStackTrace();

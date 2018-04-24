@@ -24,7 +24,7 @@ public class NashornDemoBot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-        logger.log(Level.FINE, "some message income!: "+update.toString());
+        logger.log(Level.FINE, "some message income!: " + update.toString());
     }
 
     @Override

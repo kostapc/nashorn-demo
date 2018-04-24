@@ -18,8 +18,7 @@ import java.util.Map;
  */
 public class ScriptApplication extends NashornWrapper implements Runnable {
 
-    // TODO: read more about invokeFunction | invokeMethod
-
+    private final String sourceFile;
     private final ScriptSource scriptSource;
     private final ScriptEngine script;
 
@@ -27,6 +26,7 @@ public class ScriptApplication extends NashornWrapper implements Runnable {
         super(fileName);
         this.scriptSource = new ScriptSource(fileName);
         this.script = super.initEngine(context);
+        this.sourceFile = fileName;
     }
 
     public void startApplication() {
@@ -37,11 +37,18 @@ public class ScriptApplication extends NashornWrapper implements Runnable {
     @Override
     public void run() {
         try {
-            // TODO: move compiled invoke to wrapper
-            CompiledScript compiledScript = ((Compilable)script).compile(
+            CompiledScript compiledScript = ((Compilable) script).compile(
                     scriptSource.getScriptFromFile()
             );
             compiledScript.eval(script.getContext());
+            /* **************************************\
+             *  EXAMPLE OF SCRIPT RUNNING FOR DEBUG  *
+            \* **************************************/
+            /*
+            script.eval(
+                    "load(\"scripts/app/bot.js\");"
+            );
+            */
         } catch (ScriptException e) {
             throw new IllegalArgumentException(e);
         }

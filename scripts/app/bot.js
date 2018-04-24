@@ -43,9 +43,6 @@
                          chat.send("you send to me this: ```"+chat.msg+"```, this is ditch...", function(res) {
                             print("send back result for "+chat.user+" is "+res);
                          });
-                     },
-            '/cities': function(chat) {
-                        chat.send("sorry, i don't know how to play it yet...", that.sendCallback);
                      }
 
         };

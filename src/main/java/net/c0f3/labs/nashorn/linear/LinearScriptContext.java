@@ -3,7 +3,6 @@ package net.c0f3.labs.nashorn.linear;
 import jdk.nashorn.api.scripting.JSObject;
 import net.c0f3.labs.nashorn.BotScriptContext;
 import net.c0f3.labs.storage.SimpleStorage;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,7 +21,7 @@ import java.util.function.Function;
 public class LinearScriptContext implements JSObject {
 
     private final BotScriptContext simpleScriptContext;
-    private final Map<String,Object> values = new HashMap<>();
+    private final Map<String, Object> values = new HashMap<>();
 
     public LinearScriptContext(SimpleStorage storage, Consumer<String> sender) {
         simpleScriptContext = new BotScriptContext(storage, sender);
@@ -50,17 +49,17 @@ public class LinearScriptContext implements JSObject {
 
     @Override
     public Object call(Object o, Object... objects) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Object newObject(Object... objects) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Object eval(String s) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -71,7 +70,7 @@ public class LinearScriptContext implements JSObject {
     @Override
     public Object getSlot(int i) {
         // TODO: iterate and return object with specified index;
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -82,7 +81,7 @@ public class LinearScriptContext implements JSObject {
     @Override
     public boolean hasSlot(int i) {
         // TODO: iterate and return object with specified index;
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -92,13 +91,13 @@ public class LinearScriptContext implements JSObject {
 
     @Override
     public void setMember(String s, Object o) {
-        values.put(s,o);
+        values.put(s, o);
     }
 
     @Override
     public void setSlot(int i, Object o) {
         // TODO: iterate and return object with specified index;
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 
     @Override

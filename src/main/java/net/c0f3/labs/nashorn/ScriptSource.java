@@ -22,8 +22,8 @@ public class ScriptSource {
     public Reader getScriptFromFile() {
         try {
             return new FileReader(fileName);
-        }  catch (FileNotFoundException e) {
-            throw new IllegalArgumentException("no file: "+new File(fileName).getAbsolutePath());
+        } catch (FileNotFoundException e) {
+            throw new IllegalArgumentException("no file: " + new File(fileName).getAbsolutePath());
         }
     }
 

@@ -30,14 +30,14 @@ public class NashornBot extends TelegramLongPollingBot {
         eventsHandler.onMessage(
                 update.getMessage().getText(),
                 String.valueOf(update.getMessage().getChatId()),
-                (msg)->{
+                (msg) -> {
                     SendMessage tgMessage = new SendMessage()
                             .setChatId(update.getMessage().getChatId())
                             .setText(msg);
                     try {
                         execute(tgMessage);
                     } catch (TelegramApiException e) {
-                        logger.log(Level.WARNING,e.getMessage());
+                        logger.log(Level.WARNING, e.getMessage());
                     }
                 }
         );

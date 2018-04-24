@@ -11,7 +11,7 @@ import net.c0f3.labs.nashorn.BotScriptContext;
 public interface BotBasicEvents {
 
     String cmdTime(String username, BotScriptContext context);
-    String cmdCities(String username, BotScriptContext context);
+
     String userMessage(String message, BotScriptContext context);
 
 }

@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * c0f3.net
  */
 public class SimpleHashMapStorage implements SimpleStorage {
-    private ConcurrentHashMap<String,Object> map = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Object> map = new ConcurrentHashMap<>();
 
     @Override
     public Boolean save(String key, Object value) {
@@ -24,6 +24,6 @@ public class SimpleHashMapStorage implements SimpleStorage {
 
     @Override
     public Boolean delete(String key) {
-        return map.remove(key)!=null;
+        return map.remove(key) != null;
     }
 }
